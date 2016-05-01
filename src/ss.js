@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var fs = require('fs'); 
 
 // find files in current or target dir

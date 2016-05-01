@@ -2,6 +2,9 @@
     "name": "simplysafe",
     "version": "1.0.0",
     "scripts": {
-        "test": "node ./src/ss.js"
+        "test": "./src/ss.js"
+    },
+    "bin": {
+        "ss": "./src/ss.js"
     }
 }
