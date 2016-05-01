@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "5.1"
+before_install: npm version 1.0.$TRAVIS_JOB_ID
 deploy:
   provider: npm
   email: npm@hidefsoftware.co.uk
