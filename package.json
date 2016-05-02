@@ -1,10 +1,14 @@
 {
-    "name": "simplysafe",
-    "version": "1.0.0",
-    "scripts": {
-        "test": "./src/ss.js"
-    },
-    "bin": {
-        "ss": "./src/ss.js"
-    }
+  "name": "simplysafe",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "./src/ss.js"
+  },
+  "bin": {
+    "ss": "./src/ss.js"
+  },
+  "devDependencies": {
+    "rewire": "^2.5.1",
+    "should": "^8.3.1"
+  }
 }
