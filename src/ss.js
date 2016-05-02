@@ -1,34 +1,34 @@
 #!/usr/bin/env node
-var fs = require('fs'); 
+var fs = require('fs');
+
+var reporter = require('./simplereporter.js');
 
 // find files in current or target dir
-
-fs.readdir('./tests', function(err, items) {
+fs.readdir('./tests', function (err, items) {
     var testPlan = {};
-// load all these modules
-// build test plan
-    for (var i=0; i<items.length; i++) {
+    // load all these modules
+    // build test plan
+    for (var i = 0; i < items.length; i++) {
         var testSuite = require('../tests/' + items[i]);
         for (var test in testSuite) {
-           testPlan[items[i] + '>' + test] = testSuite[test]; 
+            testPlan[items[i] + ' > ' + test] = testSuite[test];
         }
     }
-
-// run tests and report
+    var testCount = Object.keys(testPlan).length;
+    reporter.onBegin(testCount);
+    // run tests and report
     var failed = 0;
     var j = 0;
-    for ( var testKey in testPlan ) {
+    for (var testKey in testPlan) {
         try {
             testPlan[testKey]();
-            console.log('PASSED - ' + j + ': [' + testKey + ']');
+            reporter.onPass(testKey);
         } catch (e) {
             failed++;
-            console.log('FAILED - ' + j + ': [' + testKey + ']');
-            console.log(e);
+            reporter.onFail(testKey, e);
         }
         j++;
     }
-    
-    var testCount = Object.keys(testPlan).length;
-    console.log('Total: ' + testCount + ' Passed: ' + (testCount - failed) + ' Failed: ' + failed);
+
+    reporter.onEnd(testCount, testCount - failed, failed);
 });
