@@ -3,6 +3,7 @@ var fs = require('fs');
 
 var reporter = require('./simplereporter.js');
 
+        
 // find files in current or target dir
 fs.readdir('./tests', function (err, items) {
     var testPlan = {};
@@ -31,4 +32,6 @@ fs.readdir('./tests', function (err, items) {
     }
 
     reporter.onEnd(testCount, testCount - failed, failed);
+
+    process.exit(failed);
 });
