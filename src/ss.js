@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 var fs = require('fs');
-
+var glob = require('glob');
 var reporter = require('./simplereporter.js');
-
+var path = require('path');
         
 // find files in current or target dir
-fs.readdir('./tests', function (err, items) {
+glob('**/*.test.js', function (err, items) {
     var testPlan = {};
     // load all these modules
     // build test plan
     for (var i = 0; i < items.length; i++) {
-        var testSuite = require('../tests/' + items[i]);
+        var testSuite = require(path.join(process.cwd(), items[i]));
         for (var test in testSuite) {
             testPlan[items[i] + ' > ' + test] = testSuite[test];
         }
